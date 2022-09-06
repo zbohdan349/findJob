@@ -49,7 +49,6 @@ public class VacancyServ {
         Account currentPrincipalName = (Account)authentication.getPrincipal();
 
         Vacancy vacancy = new Vacancy();
-
         vacancy.setName(vacDto.getName());
         vacancy.setBigDescription(vacDto.getBig());
         vacancy.setSalary(vacDto.getSalary());
