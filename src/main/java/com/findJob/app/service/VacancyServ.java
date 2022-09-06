@@ -8,10 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -31,14 +28,14 @@ public class VacancyServ {
     public List<Vacancy> getFilter(Integer salary, List<Level> levels, Category category){
         if (salary==null)salary = 0;
         if (levels ==null){
-            levels = new ArrayList<Level>();
-            levels.addAll(List.of(Level.values()));
+            levels = new ArrayList<Level>(Arrays.asList(Level.values()));
+
         }
 
         List<Vacancy>list =vacancyRepo.getByFilter(salary,levels);
 
         if (category!=null)
-            list = list.stream().filter(vacancy -> vacancy.getCategories().contains(category)).toList();
+            list = list.stream().filter(vacancy -> vacancy.getCategories().contains(category)).collect(Collectors.toList());
 
         return list;
     }
