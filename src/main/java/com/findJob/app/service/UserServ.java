@@ -6,6 +6,8 @@ import com.findJob.app.model.Role;
 import com.findJob.app.model.dto.RegDto;
 import com.findJob.app.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository

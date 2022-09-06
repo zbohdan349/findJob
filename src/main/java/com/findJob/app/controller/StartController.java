@@ -73,19 +73,9 @@ public class StartController {
     }
     @PostMapping("/addVacancy")
     public  String addVacancy(@ModelAttribute VacDto vacDto, Model model){
-        Vacancy vacancy = new Vacancy();
 
-        vacancy.setName(vacDto.getName());
-        vacancy.setBigDescription(vacDto.getBig());
-        vacancy.setSalary(vacDto.getSalary());
-        vacancy.setSmallDescription(vacDto.getSmall());
-        vacancy.setLevel(vacDto.getLevel());
-        Company company = new Company();
-        company.setId(1);
-        vacancy.setCategories(vacDto.getCategories());
-        vacancy.setCompany(company);
 
-        vacancyServ.save(vacancy);
+        vacancyServ.save(vacDto);
         return "redirect:/find";
     }
     @GetMapping("/registration")

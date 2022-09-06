@@ -1,10 +1,11 @@
 package com.findJob.app.service;
 
-import com.findJob.app.model.Category;
-import com.findJob.app.model.Level;
-import com.findJob.app.model.Vacancy;
+import com.findJob.app.model.*;
+import com.findJob.app.model.dto.VacDto;
 import com.findJob.app.repo.VacancyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,7 +46,23 @@ public class VacancyServ {
         return vacancyRepo.getById(id);
     }
 
-    public void save(Vacancy vacancy){
+    public void save(VacDto vacDto){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account currentPrincipalName = (Account)authentication.getPrincipal();
+
+        Vacancy vacancy = new Vacancy();
+
+        vacancy.setName(vacDto.getName());
+        vacancy.setBigDescription(vacDto.getBig());
+        vacancy.setSalary(vacDto.getSalary());
+        vacancy.setSmallDescription(vacDto.getSmall());
+        vacancy.setLevel(vacDto.getLevel());
+        Company company = new Company();
+        company.setId(currentPrincipalName.getId());
+        vacancy.setCategories(vacDto.getCategories());
+        vacancy.setCompany(company);
+
         vacancyRepo.save(vacancy);
     }
 
