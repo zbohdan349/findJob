@@ -64,12 +64,23 @@ public class StartController {
         model.addAttribute("vacancy",vacancyServ.getCategoryById(id));
         return "vacancy";
     }
+    @GetMapping("/vacancy/update/{id}")
+    public  String startConversation(Model model,@PathVariable Integer id){
+        vacancyServ.startConversation(id);
+        return "redirect:/find";
+    }
     @GetMapping("/addVacancy")
     public  String addVacancyGet(Model model){
         model.addAttribute("levels", Level.values());
         model.addAttribute("vacDto",new VacDto());
         model.addAttribute("categories",categoryServ.getAllCategories());
         return "addVacancy";
+    }
+    @GetMapping("/getVacancies")
+    public  String getVacancies(Model model){
+
+        model.addAttribute("vacancies",vacancyServ.getCompanyVacancies());
+        return "MyVacancion";
     }
     @PostMapping("/addVacancy")
     public  String addVacancy(@ModelAttribute VacDto vacDto, Model model){

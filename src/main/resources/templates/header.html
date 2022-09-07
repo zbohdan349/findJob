@@ -20,6 +20,7 @@
 
         <div sec:authorize=hasAuthority('COMPANY')  class="text-end">
             <a type="button" th:href="@{/addVacancy}" class="btn btn-success">+</a>
+            <a type="button" th:href="@{/getVacancies}" class="btn btn-outline-warning me-2">Опубліковані вакансї</a>
             <a th:href="@{/logout}" class="btn btn-outline-light me-2">Logout</a>
         </div>
         <div sec:authorize="hasAuthority('USER')" class="text-end">

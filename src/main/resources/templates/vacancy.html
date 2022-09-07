@@ -12,7 +12,7 @@
 <div th:insert="header :: header"> </div>
 <div class="container-sm">
     <div class="col pt-2">
-        <div class="feature  bg-light shadow px-4 mb-4 rounded-3 shadow" >
+        <form  action="" th:action="@{/vacancy/update/{id}(id=${vacancy.id})}" method="get" class="feature  bg-light shadow px-4 mb-4 rounded-3 shadow" >
             <div class="feature-icon bg-dark bg-gradient">
                 <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
             </div>
@@ -23,9 +23,16 @@
             <div th:each="category : ${vacancy.categories}"  th:utext ="${category.name}" class="d-inline-block p-2 mt-2 bg-dark display-6 text-white">An item</div>
             <p/>
             <div class="h5" style="word-break:break-all;" th:utext ="${vacancy.bigDescription}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <button type="button" class="my-3 m btn btn-danger btn-lg">Повідомити роботодавця</button>
-
-        </div>
+            <div sec:authorize="hasAuthority('USER')">
+                    <input type="submit" class="my-3 m btn btn-danger btn-lg" value="Повідомити роботодавця">
+            </div>
+            <div sec:authorize="hasAuthority('COMPANY')">
+                <a th:href="@{/addVacancy}" class="my-3 m btn btn-danger btn-lg">Створіть свою вакансію</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/logout}" class="my-3 m btn btn-danger btn-lg">Повідомити роботодавця</a>
+            </div>
+        </form>
     </div>
 </div>
 

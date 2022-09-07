@@ -1,7 +1,10 @@
 package com.findJob.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -18,6 +21,10 @@ public class Client {
     @JoinColumn(name = "id")
     @MapsId
     private Account account;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Vacancy> vacancies;
 
 
     public Client() {
@@ -61,6 +68,14 @@ public class Client {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Vacancy> getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(Set<Vacancy> vacancies) {
+        this.vacancies = vacancies;
     }
 
     @Override

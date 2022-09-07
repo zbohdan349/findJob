@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<title>Filter</title>
+</head>
+<body class="bg-light">
+<div th:insert="header :: header"> </div>
+<div class="container bg-light color-light">
+    <p class="fs-1">Вакансії</p>
+    <hr style=" height: 2px;">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col pt-2">
+        <div th:each="vacancy : ${vacancies}" class="accordion-item">
+            <H2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <span th:utext ="${vacancy.name}">Приклад вакансії</span>
+                   <div class="text-end"> <span th:utext ="${' Рівень навичок: '+{vacancy.level}}" class="text-danger ms-4">JUNIOR</span></div>
+
+                </button>
+            </h2>
+            <div  class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ім'я</th>
+                            <th scope="col">Прізвище</th>
+                            <th scope="col">linkedIn</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each ="client : ${vacancy.clients}">
+                        <tr>
+                            <td th:utext ="${client.name}">client</td>
+                            <td th:utext ="${client.secondName}">Jacob</td>
+                            <td th:utext ="${client.account.linkedIn}">Larry the Bird</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

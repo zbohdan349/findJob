@@ -32,7 +32,14 @@ public class Vacancy {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Client> clients;
+
     public Vacancy() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -109,5 +116,13 @@ public class Vacancy {
 
     public void setBigDescription(String bigDescription) {
         this.bigDescription = bigDescription;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 }

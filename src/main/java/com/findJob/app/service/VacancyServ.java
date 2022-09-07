@@ -2,11 +2,13 @@ package com.findJob.app.service;
 
 import com.findJob.app.model.*;
 import com.findJob.app.model.dto.VacDto;
+import com.findJob.app.repo.ClientRepo;
 import com.findJob.app.repo.VacancyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,6 +18,9 @@ import java.util.stream.Collectors;
 public class VacancyServ {
     @Autowired
     private VacancyRepo vacancyRepo;
+
+    @Autowired
+    private ClientRepo clientRepo;
 
     public List<Vacancy> getRandom(){
         return vacancyRepo.findAll().subList(0,3);
@@ -62,4 +67,22 @@ public class VacancyServ {
         vacancyRepo.save(vacancy);
     }
 
+    @Transactional
+    public void startConversation(Integer vacancyId){
+        Vacancy vacancy = vacancyRepo.getById(vacancyId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account currentPrincipalName = (Account)authentication.getPrincipal();
+
+        Client client = clientRepo.getById(currentPrincipalName.getId());
+
+        vacancy.getClients().add(client);
+        vacancyRepo.saveAndFlush(vacancy);
+    }
+    public List<Vacancy> getCompanyVacancies(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account currentPrincipalName = (Account)authentication.getPrincipal();
+        Company company = new Company();
+        company.setId(currentPrincipalName.getId());
+        return vacancyRepo.getByCompany(company);
+    }
 }

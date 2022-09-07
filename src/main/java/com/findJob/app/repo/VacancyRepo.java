@@ -1,6 +1,7 @@
 package com.findJob.app.repo;
 
 import com.findJob.app.model.Category;
+import com.findJob.app.model.Company;
 import com.findJob.app.model.Level;
 import com.findJob.app.model.Vacancy;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,5 @@ public interface VacancyRepo extends JpaRepository<Vacancy,Integer> {
             @Param("salary")Integer salary,
             @Param("levels")List<Level> levels
     );
+    public List<Vacancy> getByCompany(Company company);
 }
