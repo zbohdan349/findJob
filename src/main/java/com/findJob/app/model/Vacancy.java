@@ -11,7 +11,7 @@ public class Vacancy {
     private int id;
 
     private String smallDescription;
-
+    @Lob
     private String bigDescription;
 
     private String name;
